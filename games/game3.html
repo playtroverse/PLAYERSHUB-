@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tic Tac Toe – Play with Bot</title>
+  <meta name="description" content="Play classic Tic Tac Toe against a simple bot. Easy, fun, and endless.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      gap: 10px;
+      margin: 30px auto;
+      width: max-content;
+    }
+    .cell {
+      width: 100px;
+      height: 100px;
+      font-size: 2em;
+      background: #111;
+      border: 2px solid #00ffff;
+      color: #00ffcc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    h1 {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tic Tac Toe</h1>
+  <p>Play vs Bot</p>
+  <div class="board" id="board"></div>
+  <p id="status"></p>
+
+  <script>
+    const board = document.getElementById("board");
+    const status = document.getElementById("status");
+    let cells = ["", "", "", "", "", "", "", "", ""];
+    let gameOver = false;
+
+    function renderBoard() {
+      board.innerHTML = "";
+      cells.forEach((cell, i) => {
+        const div = document.createElement("div");
+        div.classList.add("cell");
+        div.textContent = cell;
+        div.onclick = () => playerMove(i);
+        board.appendChild(div);
+      });
+    }
+
+    function checkWin(player) {
+      const winPatterns = [
+        [0,1,2],[3,4,5],[6,7,8],
+        [0,3,6],[1,4,7],[2,5,8],
+        [0,4,8],[2,4,6]
+      ];
+      return winPatterns.some(p => p.every(i => cells[i] === player));
+    }
+
+    function playerMove(index) {
+      if (gameOver || cells[index]) return;
+      cells[index] = "X";
+      renderBoard();
+      if (checkWin("X")) {
+        status.textContent = "You win!";
+        gameOver = true;
+        return;
+      }
+      if (!cells.includes("")) {
+        status.textContent = "Draw!";
+        return;
+      }
+      botMove();
+    }
+
+    function botMove() {
+      const emptyIndexes = cells.map((v, i) => v === "" ? i : null).filter(v => v !== null);
+      const move = emptyIndexes[Math.floor(Math.random() * emptyIndexes.length)];
+      cells[move] = "O";
+      renderBoard();
+      if (checkWin("O")) {
+        status.textContent = "Bot wins!";
+        gameOver = true;
+      } else if (!cells.includes("")) {
+        status.textContent = "Draw!";
+      }
+    }
+
+    renderBoard();
+  </script>
+</body>
+</html>
