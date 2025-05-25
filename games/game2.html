@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lucky Dice – Dice Rolling Game</title>
+  <meta name="description" content="Roll the dice and test your luck in Lucky Dice. Will you get double sixes?">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    .dice-box {
+      margin: 30px auto;
+      padding: 30px;
+      background-color: #111;
+      border: 2px solid #00ffff;
+      width: 300px;
+      border-radius: 10px;
+    }
+    .dice {
+      font-size: 3em;
+      margin: 20px;
+      color: #00ffcc;
+    }
+    .roll-btn {
+      padding: 10px 20px;
+      background: #ff00ff;
+      color: #fff;
+      border: none;
+      font-size: 1em;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Lucky Dice</h1>
+  <p>Roll two dice and see your score!</p>
+
+  <div class="dice-box">
+    <div class="dice" id="dice1">🎲</div>
+    <div class="dice" id="dice2">🎲</div>
+    <button class="roll-btn" onclick="rollDice()">Roll Dice</button>
+    <p id="result"></p>
+  </div>
+
+  <script>
+    function rollDice() {
+      const dice1 = Math.ceil(Math.random() * 6);
+      const dice2 = Math.ceil(Math.random() * 6);
+      document.getElementById("dice1").textContent = "🎲 " + dice1;
+      document.getElementById("dice2").textContent
